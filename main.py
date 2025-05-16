@@ -122,25 +122,6 @@ def runKMeans() -> None:
 
     Dataset = namedtuple("Dataset", ["inputs", "labels"])
 
-    # Read data
-    # data = pd.read_csv("data/digits.csv", header=0)
-
-    # # We assume labels are in the first column of the dataset
-    # labels = data.values[:, 0]
-
-    # # If labels are of type string, convert class names to numeric values
-    # if isinstance(labels[0], str):
-    #     classes = np.unique(labels)
-    #     class_mapping = dict(zip(classes, range(0, len(classes))))
-    #     labels = np.vectorize(class_mapping.get)(labels)
-
-    # # Features columns are indexed from 1 to the end, make sure that dtype = float32
-    # inputs = data.values[:, 1:].astype("float32")
-
-    # # Split data into training set and test set with a ratio of 2:1
-    # train_inputs, test_inputs, train_labels, test_labels = train_test_split(
-    #     inputs, labels, test_size=0.33
-    # )
     train_inputs, test_inputs, train_labels, test_labels = get_and_split_data()
 
     # all_data = Dataset(inputs, labels)
@@ -170,7 +151,6 @@ def kmeans():
     train, test = train_test_split(data, test_size=0.2) # 20% test data
 
     atts = ["acousticness", "energy", "danceability","duration_ms","instrumentalness", "speechiness","valence", "target"]
-    # atts = ["danceability", "instrumentalness", "speechiness"]
     train = train[atts]
     test = test[atts]
 
@@ -183,8 +163,6 @@ def kmeans():
     x = train["danceability"]
     y = train["duration_ms"]
     z = train["target"]
-
-    # cmhot = cmhot = plt.get_cmap('bwr')
 
     ax.scatter(x,y,z,c=train['kmeans'])
     ax.set_xlabel("Danceability")
@@ -262,8 +240,8 @@ def main():
     runKMeans()
     kmeans()
 
-    # print("k nearest neighbors")
-    # knn(X_train, X_test, Y_train, Y_test)
+    print("k nearest neighbors")
+    knn(X_train, X_test, Y_train, Y_test)
 
 
 
